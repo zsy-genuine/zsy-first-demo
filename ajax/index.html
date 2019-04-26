@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./node_modules/axios/dist/axios.js"></script>
+    <script src="api.js"></script>
+</head>
+<body>
+    <!-- <script>
+        //axios  返回的是一个promise
+        axios.defaults.baseURL='http://localhost:3000';
+        //每次返回的data都比较多  需要自己去取 所以我们想拿我们想要的数据  axios提供了请求拦截和响应拦截
+        // interceptor   拦截器
+        // use里面有2个参数  一个是成功的回调一个是失败的回调
+        // 请求拦截
+        axios.interceptors.request.use(config=>{
+            alert(1);
+            return config
+        },err=>{
+
+        })
+        //响应拦截
+        axios.interceptors.response.use(res=>{//这个data是每次响应回来的data，对每次响应回来的data做一层处理
+            return res.data
+        },err=>{
+            
+        })
+        axios.get('/slider').then(data=>{
+            // console.log(data.data)
+            // let {data}=res;
+            console.log(data,1);
+        })
+        axios.get('/hot').then(data=>{
+            console.log(data,2);
+        })
+        // axios.get('http://132.232.89.22:8080/slider').then(res=>{
+        //     // console.log(data.data)
+        //     let {data}=res;
+        //     console.log(data);
+        // })
+    </script> -->
+</body>
+</html>

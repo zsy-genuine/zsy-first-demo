@@ -1,0 +1,16 @@
+{
+  "name": "ajax",
+  "version": "1.0.0",
+  "description": "server .js  banner.js后端\r index.html 前端  ajax(url)\r ##axios的使用\r 1.基于promise封装的http库\r 2.拦截请求和响应\r 3.有效防止跨站伪造请求xsrf攻击 init 初始化  description介绍",
+  "main": "banner.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0"
+  }
+}

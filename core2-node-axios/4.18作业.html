@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #qiu1,#qiu2,#qiu3{
+			width: 200px;
+			height: 200px;
+			border-radius: 50%;
+			background-color:deepskyblue;
+			position: relative;
+			left:0;
+		}
+    </style>
+</head>
+<body>
+    <div id="qiu1"></div>
+    <div id="qiu2"></div>
+    <div id="qiu3"></div>	
+    <script>
+        function move(ele,end){
+            return new Promise((resolve,reject)=>{
+                let num=0;
+                let timer=setInterval(function(){
+                    if(num>=end){
+                        ele.style.left=end+'px';
+                        //目标运动结束
+                        clearInterval(timer)
+                        resolve(1)
+                    }else{
+                        num+=5
+                        ele.style.left=num+'px'
+                    }
+                },13)
+            })
+        }
+        //方法一：
+        async function m(){
+            await move(qiu1,400)
+            await move(qiu2,400)
+            await move(qiu3,400)
+        }
+        m().then(data=>{
+            alert('球都走完了')
+        })
+        // 方法二：
+        // move(qiu1,300).then(data=>{
+        //     move(qiu2,300).then(data=>{
+        //         move(qiu3,300).then(data=>{
+        //              alert('球都走完了')
+        //         })
+        //     })
+        // })
+        //方法三：
+        // function move(ele,end,callback){
+        //     let num=0;
+        //     let timer=setInterval(function(){
+        //         if(num>=end){
+        //             ele.style.left=end+'px'; 
+        //             clearInterval(timer);
+        //             callback()
+        //         }else{
+        //             num+=5;
+        //             ele.style.left=num+'px';
+        //         }
+        //     },13)
+        // }
+        // move(qiu1,400,function(){
+        //     move(qiu2,400,function(){
+        //         move(qiu3,400,function(){
+        //             alert('球都走完了')
+        //         })
+        //     })
+        // })
+    </script>
+</body>
+</html>

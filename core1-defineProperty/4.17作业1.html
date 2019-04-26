@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" name="" id="inp">
+    <input type="text" name="" id="inp1">
+</body>
+<script>
+    let obj={
+        name:'',
+        age:''
+    }
+    //input改变给对象赋值
+    inp.oninput=function(e){
+        obj.name=e.target.value;
+    }
+    inp1.oninput=function(e){
+        obj.age=e.target.value;
+    }
+    // 对象值改变给input赋值
+    for(let key in obj){
+        defineReactive(obj,key,obj[key])
+    }
+    function defineReactive(obj,key,value){
+        Object.defineProperty(obj,key,{
+            get(){
+                return value
+            },set(val){
+                value=val;
+                if(key=='name'){
+                    inp.value=val
+                }else{
+                    inp1.value=val
+                }
+            }
+        })
+    }
+
+    // function observer(target){
+    //     if(typeof target=='object'&&typeof target!=null){
+    //         //defineReactive自己定义一个数据劫持的方法
+    //         for(let key in target){
+    //             defineReactive(target,key,target[key])
+    //         }
+    //     }
+    // }
+    // function defineReactive(obj,key,value){
+    //     //如果值继续是对象的话  也需要监听
+    //     observer(value)//深度劫持
+    //     Object.defineProperty(obj,key,{
+    //         get(){
+    //             return value
+    //         },
+    //         set(val){
+    //             observer(val)
+    //             console.log('值更新了');
+    //             value=val;
+    //         }
+    //     })
+    // }
+    // observer(obj)  //监听obj
+    // obj.name;
+</script>
+</html>

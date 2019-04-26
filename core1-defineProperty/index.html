@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			.inp{
+				display: block;
+				width: 200px;
+				height: 60px;
+				margin: 0 auto;
+				font-size: 40px;
+			}
+		</style>
+	</head>
+	<body>
+		<input type="text " id="inp"/>
+	</body>
+	<script>
+		//input value 值改变的时候obj的name跟着改变    obj.name改变的时候    input的value值跟着改变
+		let obj={name:1};
+		//1
+		inp.oninput=function(e){
+			//inp的值改变  引起obj.name的改变
+			obj.name=e.target.value	
+		}
+		//obj.name如果改变了  让inp.value改变
+		Object.defineProperty(obj,'name',{
+			get(){
+				return value
+			},
+			set(val){
+				value=val;
+				inp.value=val;
+			}
+		})
+	</script>
+</html>
