@@ -9,7 +9,7 @@ git config --global user.email "55343581@qq.com"
 git init 
 4. 添加文件到仓库
  <!-- 单个文件 -->
-git add 文件.后缀名  
+git add 文件.后缀名  
 git add index.html 
 <!-- 所有文件 -->
 git add -A   -A表示all 添加所有文件
@@ -20,7 +20,7 @@ git commit -m'提交的内容'
 6. git 添加远程仓库地址
 git remote add origin  https://github.com/ruanye/first.git
 查看远程仓库地址 git remote -v
-7. 把项目提交的远程仓库
+7. 把项目提交的远程仓库
 git push origin master 
 <!-- 修改之后 -->
 1. git add -A
