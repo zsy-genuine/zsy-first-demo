@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="con">
+    <head-title :showArrow='true'> 详情页</head-title>
     <!-- 详情页
     {{deId}} -->
     <img :src="single.img" alt="">
@@ -10,11 +11,20 @@
 </template>
 <script>
 import {getDetail} from '../api'
+import HeadTitle from '../components/HeadTitle.vue'
   export default{
     name:'detail',
+    components:{
+      HeadTitle
+    },
     data(){
       return {
-        single: {}
+        single: {
+          img:null,
+          name:null,
+          info:null,
+          price:null
+        }
       }
     },
     created(){
@@ -28,6 +38,7 @@ import {getDetail} from '../api'
       }
     },
     methods:{
+     
       // 发送详情请求
       async Detail(){
         let {data} = await  getDetail(this.deId)
@@ -41,3 +52,14 @@ import {getDetail} from '../api'
     }
   }
 </script>
+<style lang="less" scoped>
+  .con{
+    position:fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 30;
+    background: #fff;
+    overflow-y: auto;
+  }
+ 
+</style>

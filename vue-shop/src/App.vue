@@ -30,8 +30,9 @@ a{
 .container{
   position: fixed;
   width: 100%;
-  height:100%;
+  // height:100%;
   bottom: 60px;
   overflow-y: auto;
+  top:0;
 }
 </style>

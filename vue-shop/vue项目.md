@@ -97,6 +97,20 @@ scrollTop+clientHeight+20>scrollHeight
 1)router 表示路由的实例 放在都在router上
 2）route  路由对象信息  放路由的属性
 loading
+25. input type=check 使用v-model的时候出现  was assigned to but it has no setter  我们需要设置get和set
+computed 属性是单个值 直接使用函数 如果需要get和set  则需要写成对象 
+26.手动给对象的属性增加监听
+this.$set/Vue.set等于给这个对象后增加的key添加了defineProperty属性
+三个参数 对象、key、value
+注意事项：对象后增加的属性并不会并劫持，需要我们手动设置
+27.把一个组件当做一个带着事件和数据的html，只是我们这个组件可以随便拆分，随处使用。
+拆分组件尽量遵循一个组件只实现一个功能的原则。
+28.vue-cli3.0配置跨域  有根目录建立一个
+vue.config.js
 ##报错
 1.can not find moudle
 路径引错 或者文件不存在
+
+
+51作业  用vue写todolist http://www.todolist.cn/ 
+加一个回到顶部的按钮

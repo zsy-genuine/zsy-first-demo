@@ -30,8 +30,7 @@
   </div>
 </template>
 <script>
-import { getPage,addGood} from "../api";
-import { constants } from 'fs';
+import { getPage} from "../api";
 export default {
     name:'about',
     data(){
@@ -77,37 +76,26 @@ export default {
          this.getList()
        },
         //添加到购物车
-       async addCar(good){
-          // // 从缓存里面取出购物车数组，如果没有，自己定义一个空的
-          // // console.log(localStorage['carlist']);
-          // // return          
-          //   let carlist=localStorage['carlist']?JSON.parse(localStorage['carlist']):[];
-          //   //如果购物车已经存在了，数量加1  没有的话，数量为1   我们自己定义一个数量的变量叫做count
+        addCar(good){
+          // 从缓存里面取出购物车数组，如果没有，自己定义一个空的
+          // console.log(localStorage['carlist']);
+          // return          
+            let carlist=localStorage['carlist']?JSON.parse(localStorage['carlist']):[];
+            //如果购物车已经存在了，数量加1  没有的话，数量为1   我们自己定义一个数量的变量叫做count
       
-          //   let caritem=carlist.find(item=>item.id==good.id);
-          //   caritem?caritem.count+=1:good.count=1;
-          //   //如果购物车里有这一项了就不再往数组里面添加了
-          //   // sele 设置了一个是否选中的值
-          //   if(!caritem){
-          //     carlist=[...carlist,good];
-          //     good.sele=true;
-          //   }else{
-          //       caritem.sele=true;
-          //   }
+            let caritem=carlist.find(item=>item.id==good.id);
+            caritem?caritem.count+=1:good.count=1;
+            //如果购物车里有这一项了就不再往数组里面添加了
+            // sele 设置了一个是否选中的值
+            if(!caritem){
+              carlist=[...carlist,good];
+              good.sele=true;
+            }else{
+                caritem.sele=true;
+            }
             
-          //   //新的购物车数组在重新扔到缓存里面
-          //   localStorage['carlist']=JSON.stringify(carlist);
-
-          //提交请求到后端
-          // console.log(good);
-          good=JSON.stringify(good)
-          let {code,msg}=await addGood(good);
-          // console.log(r)
-          if(code==200){
-            alert('添加成功')
-          }else{
-            alert('网络错误，请稍后再试')
-          }
+            //新的购物车数组在重新扔到缓存里面
+            localStorage['carlist']=JSON.stringify(carlist);
         }
     }
 }

@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        .page-top {
+            width: 100%;
+            height: 40px;
+            background:#000;
+        }
+        .page-content {
+            width: 50%;
+            margin: 0 auto;
+        }
+        .page-content h3 {
+            color: #ccc;
+            line-height: 40px;
+            font-size:20px;
+            cursor: pointer;
+        }
+        .bg-title {
+            color: #222;
+            margin-bottom: 20px;
+        }
+        #main {
+            width: 50%;
+            margin: 20px auto;
+        }
+        .task-input {
+            width: 360px;
+            height: 26px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            position: absolute;
+            top:6px;
+            left:600px;
+            outline: none;
+            padding-left: 20px;
+        }
+        .task-list {
+            display: flex;
+            margin: 10px 0;
+        }
+        .task-list li {
+            flex: 1;
+        }
+        .task-list li:first-child {
+            padding-left: 5px;
+            color: #dd4b39;
+        }
+        .no-task-tip {
+            padding: 10px 0 10px 10px;
+            display: block;
+            border-bottom: 1px solid #ededed;
+            color: #666;
+            background: #fff;
+        }
+        .tasks-list li {
+            position: relative;
+            border-bottom: 1px solid #ccc;
+        }
+        .tasks-list li:hover .delete {
+            display: block;
+        }
+
+        .tasks-list li .delete {
+            display: none;
+            position: absolute;
+            right: 10px;
+            top: 0;
+            bottom: 0;
+            width: 40px;
+            height: 40px;
+            font-size: 30px;
+            color: #cc9a9a;
+            margin-bottom: 11px;
+            transition: color 0.2s ease-out;
+            /*
+                transition：四个参数
+                第一个参数：要控制的样式名称
+                第二个参数：运动时间duration
+                第三个参数：运动形式 ease-in ease-out linear
+                第四个参数：定义过度效果何时开始
+            */
+        }
+        .tasks-list li .delete:hover {
+            color: #af5b5e;
+        }
+        .tasks-list li .delete:after {
+            /* 
+                content 属性与 :before 及 :after 伪元素配合使用，来插入生成内容。
+                说明：该属性用于定义元素之前或之后放置的生成内容。默认地，这往往是行内内容，不过该内容创建的框类型可以用属性 display 控制。
+            */
+            content: '×';
+        }
+        
+        .edit {
+            display: none;
+        }
+        .tasks {
+            background: #fff;
+        }
+        .tasks-list li label {
+            /* 
+                white-space 属性设置如何处理元素内的空白。
+                pre-line合并空白符序列，但是保留换行符。
+            */
+            white-space: pre-line;
+            /*
+                word-break 属性规定自动换行的处理方法。
+                提示：通过使用 word-break 属性，可以让浏览器实现在任意位置的换行。 
+                break-all允许在单词内换行。
+            */
+            word-break: break-all;
+            padding: 15px 60px 15px 15px;
+            margin-left: 45px;
+            display: block;
+            line-height: 1.2;
+            transition: color 0.4s;
+        }
+        .tasks-list li .toggle {
+            text-align: center;
+            width: 40px;
+            /* auto, since non-WebKit browsers doesn't support input styling */
+            height: auto;
+            position: absolute;
+            top: 5px;
+            bottom: 0;
+            margin: auto 0;
+            /* border: none; Mobile Safari */
+            /* -webkit-appearance: none;
+            appearance: none; */
+        }
+
+        .toggle {
+            text-align: center;
+            width: 40px;
+            /* auto, since non-WebKit browsers doesn't support input styling */
+            height: auto;
+            position: absolute;
+            top: 5px;
+            bottom: 0;
+            margin: auto 0;
+            /* border: none; Mobile Safari */
+            /* -webkit-appearance: none; */
+            /* appearance: none; */
+        }
+
+        /* .toggle:after {
+            content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="40" fill="none" stroke="#ededed" stroke-width="3"/></svg>');
+        }
+
+        .toggle:checked:after {
+            content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="40" fill="none" stroke="#bddad5" stroke-width="3"/><path fill="#5dc2af" d="M72 25L42 71 27 56l-4 4 20 20 34-52z"/></svg>');
+        } */
+        .tasks-list li.editing {
+            border-bottom: none;
+            padding: 0;
+        }
+        .tasks-list li.completed label {
+            color: #d9d9d9;
+            text-decoration: line-through;
+        }
+        .tasks-list li.editing .edit {
+            display: block;
+            width: 506px;
+            padding: 13px 17px 12px 17px;
+            margin: 0 0 0 43px;
+        }
+
+        .tasks-list li.editing .view {
+            display: none;
+        }
+
+        .action {
+            /* text-align: center; */
+            /* display: flex; */
+        }
+        .action a {
+            margin: 0px 10px;
+            /* flex: 1; */
+            padding: 5px 0;
+            color: #000;
+            font-size: 20px;
+            font-weight: 600;
+
+        }
+
+        .action a:nth-child(3){
+            margin-right: 0;
+        }
+
+        .active {
+            border: 1px solid rgba(175, 47, 47, 0.2);
+        }
+        .action a {
+            margin: 0px 10px;
+            flex: 1;
+            padding: 5px 0;
+            color: #000;
+        }
+        .action a:nth-child(3) {
+            margin-right: 0;
+        }
+        a {
+            color: #000;
+            text-decoration: none;
+        }
+
+        .tasks-list li.completed label {
+            color: #d9d9d9;
+            text-decoration: line-through;
+        }
+        button {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            background: none;
+            font-size: 100%;
+            vertical-align: baseline;
+            font-family: inherit;
+            font-weight: inherit;
+            color: inherit;
+            outline: 0;
+        }
+        body {
+            font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background: #fafafa;
+        }
+        .work{
+            position: absolute;
+            font-size:17px;
+            left:950px;
+            background: lightblue;
+            width:20px;
+            color: blue !important;
+            text-align: center !important;
+            height:25px;
+            display:inline-block;
+            border-radius: 50%;
+            line-height: 25px;
+        }
+    </style>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div class="page-top">
+        <div class="page-content">
+            <h3>ToDoList</h3>
+        </div>
+    </div>
+    <div id="main">
+        <!-- <h3 class="bg-title">添加任务:</h3> -->
+        <input type="text" class="task-input" v-model='todoname' placeholder="添加ToDo" @keyup.enter='addTodo()' />
+        <ul class="task-list">
+            <li class="work">{{unfinishnum}}</li>
+            <li class="action">
+                <!-- <a href="#all" :class="{active:status=='all'}">所有任务</a> -->
+                <a href="#unfinished" :class="{active:status=='unfinished'}">正在进行</a>
+                <!-- <a href="#finished" :class="{active:status=='finished'}">已经完成</a> -->
+            </li>
+        </ul>
+        
+        <!-- <h3 style="margin-bottom: 20px;">任务列表:</h3> -->
+        <!-- 盛放任务列表的盒子 -->
+        <div class="tasks">
+            <span class="no-task-tip" v-show="list.length<=0">还没有添加任何任务</span>
+            <ul class="tasks-list">
+                <li class="tasks-item" v-for="(item,index) in filterList" >
+                    <div class="view" v-show="!item.isChecked">
+                        <input type="checkbox" class="toggle" v-model="item.isChecked">
+                        <label @dblclick="editTodo(item)">{{item.title}}</label>
+                        <button class="delete" @click="deletetodo(index)"></button>
+                    </div>
+                    <!-- 编辑的输入框 -->
+                    <input type="text" class="edit" @keyup.enter='todoend()' @blur="todoend()" v-model="item.title" v-focus @keyup.esc="cancel(item)" />
+                </li>
+            </ul>
+        </div>
+        <ul class="task-list">
+            <li class="work">{{finishnum}}</li>
+            <li class="action">
+                <!-- <a href="#all" :class="{active:status=='all'}">所有任务</a> -->
+                <!-- <a href="#unfinished" :class="{active:status=='unfinished'}">正在进行</a> -->
+                <a href="#finished" :class="{active:status=='finished'}">已经完成</a>
+            </li>
+        </ul>
+        <div class="tasks">
+            <!-- <span class="no-task-tip" v-show="list.length<=0">还没有添加任何任务</span> -->
+            <ul class="tasks-list">
+                <li class="tasks-item" v-for="(item,index) in filterList" v-bind:class="{completed:item.isChecked,editing:item===beforetodo}">
+                    <div class="view" v-show="item.isChecked">
+                        <input type="checkbox" class="toggle" v-model="item.isChecked">
+                        <label @dblclick="editTodo(item)">{{item.title}}</label>
+                        <button class="delete" @click="deletetodo(index)"></button>
+                    </div>
+                    <!-- 编辑的输入框 -->
+                    <!-- <input type="text" class="edit" @keyup.enter='todoend()' @blur="todoend()" v-model="item.title" v-focus @keyup.esc="cancel(item)" /> -->
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        // 模拟假数据任务列表
+        // var list = [
+        //     {title:'吃饭',isChecked:false},
+        //     {title:'睡觉',isChecked:false},
+        // ]
+        // 存储数据封装函数对象
+        var storage = {
+            // 设置数据的函数
+            set:function(key,value){
+                localStorage.setItem(key,JSON.stringify(value));
+            },
+            // 获取数据的函数
+            get:function(key){
+                return JSON.parse(localStorage.getItem(key)) || [];
+            }
+        }
+        var list = storage.get("customList");
+        // 定义方法过滤数组
+        /*
+            点击a标签的时候当前hash会变化
+            拿当前hash去filter对象中查找应该调用的函数，filter对象中的每个函数返回的都是过滤后的新数组
+        */
+        var filter = {
+            all:function(list){
+                return list;
+            },
+            unfinished:function(list){
+                return list.filter((item) => {
+                    return !item.isChecked;
+                })
+            },
+            finished:function(list){
+                return list.filter((item) => {
+                    return item.isChecked;
+                })
+            }
+        }
+        var vm = new Vue({
+            el: "#main",
+            data:{
+                list:list,
+                todoname:"",
+                beforeTitle:"", // 编辑完成前的备份数据
+                beforetodo:"", // 正在编辑的那条数据
+                status:"all" // 保存当前列表的状态
+            },
+            computed:{ // 计算属性的值是函数的返回值
+                // unfinishnum:function(){
+                //     return this.list.length;
+                // },
+                // 过滤未完成的任务
+                unfinishnum:function(){
+                    return this.list.filter(function(item){
+                        return !item.isChecked
+                    }).length;
+                },
+                finishnum:function(){
+                    return this.list.filter(function(item){
+                        return item.isChecked
+                    }).length;
+                },
+                filterList:function(){
+                    return filter[this.status] ? filter[this.status](list) : list;
+                }
+            },
+            watch:{ // 监听list的变化，只要list变化我们就把数据存到缓存里面
+                list:{
+                    handler:function(){
+                        storage.set("customList",list);
+                    },
+                    deep:true
+                }  
+            },
+            methods:{
+                // 添加任务
+                addTodo:function(){
+                    this.list.push({
+                        title: this.todoname,
+                        isChecked: false
+                    })
+                    this.todoname = "";
+                },
+                // 删除任务
+                deletetodo:function(index){
+                    // console.log(index);
+                    this.list.splice(index,1);
+                },
+                // 编辑任务
+                editTodo:function(item){
+                    // console.log(item);
+                    // 存title为了后续取消能恢复原来的title
+                    this.beforeTitle = item.title;
+                    // 为了判断当前传过来的那条是否和点击编辑的相同
+                    this.beforetodo = item;
+                },
+                // 编辑完成，失焦事件和回车事件
+                todoend:function(){
+                    // 编辑完成 让div显示 输入框隐藏
+                    this.beforetodo = "";
+                },
+                // 取消编辑
+                cancel:function(item){
+                    // 输入框隐藏 div显示
+                    this.beforetodo = "";
+                    // 恢复到编辑前的title
+                    item.title = this.beforeTitle;
+                },
+            },
+            // 自定义指令
+            directives:{
+                'focus':{ // focus为指令名称也是对象
+                    // 键和值 键：自定义指令名称，值是个函数
+                    update:function(el){ // 检测指令所绑定的dom元素的值发生变化时调用
+                        // el：表示指令所绑定的dom元素
+                        // console.log(el);
+                        el.focus();
+                    }
+                }
+            }
+        })
+        // 拿锚点值和当前三种状态作比较 all unfinished finished
+
+        // 定义拿锚点方法
+        function getHash(){
+            var hash = (window.location.hash).slice(1);
+            // console.log(hash);
+            vm.status = hash;
+        }
+        getHash();
+
+        // 事件监听 监听hashchange事件，当锚点改变的时候
+        window.addEventListener("hashchange",getHash);
+    </script>
+</body>
+</html>
