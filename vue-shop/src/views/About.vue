@@ -100,7 +100,7 @@ export default {
 
           //提交请求到后端
           // console.log(good);
-          good=JSON.stringify(good)
+          // good=JSON.stringify(good)
           let {code,msg}=await addGood(good);
           // console.log(r)
           if(code==200){

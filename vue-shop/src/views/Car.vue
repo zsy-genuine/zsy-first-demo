@@ -109,7 +109,7 @@ export default {
         }
         //  console.log(good.count)
       }
-      good=JSON.stringify(good);
+      // good=JSON.stringify(good);
       // console.log(good);
       //数量改变之后发送请求
       await changeCount(good)

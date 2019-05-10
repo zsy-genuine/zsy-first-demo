@@ -106,7 +106,14 @@ this.$set/Vue.set等于给这个对象后增加的key添加了defineProperty属�
 27.把一个组件当做一个带着事件和数据的html，只是我们这个组件可以随便拆分，随处使用。
 拆分组件尽量遵循一个组件只实现一个功能的原则。
 28.vue-cli3.0配置跨域  有根目录建立一个
-vue.config.js
+vue.config.js(名字不能变)
+29.express的使用
+npm install express -s
+封装了req和res  有很多中间件可以配合使用
+npm install cors    cors跨域中间件
+npm install body-parser  解析数据用的
+express  kao  egg
+npm install -g  nodemon   node代码修改后会自动重启  可以做到实时看服务器
 ##报错
 1.can not find moudle
 路径引错 或者文件不存在

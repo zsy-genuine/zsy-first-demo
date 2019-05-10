@@ -53,5 +53,5 @@ export let deleCarGood=(id)=>{
 // }
 // 数量改变请求   put方式
 export let changeCount=(good)=>{
-    return axios.put(`/changecount`,good)
+    return axios.post(`/changecount`,good)
 }
