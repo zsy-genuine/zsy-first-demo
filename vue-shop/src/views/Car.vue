@@ -1,12 +1,6 @@
 <template>
     <div class="container">
-      <!-- <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      <p>1</p>
-      这是购物车页面 -->
+     
       <head-title>购物车</head-title>
       <div>
         <label for="checkAll">
