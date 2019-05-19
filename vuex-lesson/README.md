@@ -121,6 +121,7 @@ import {mapState} from 'vuex'
 ...mapState(['username'])
 this.user=this.$store.state.username
 2.mapGettes 映射getters的属性到this的data上面
+组件使用
 import {mapGetters} from 'vuex'
 放在computed属性里面 ...mapGetters(可以使对象可以是数组)
 对象的时候只是起到改名的作用
@@ -140,6 +141,9 @@ methods里面定义的方法怎么调用mapActions  拿回来的方法就可以�
 import {mapActions} from 'vuex'
 用的时候放到methods
 4.mapMutations 把mutations的方法映射到this的methods上面  可以通过this[mutations上定义的函数]来调用对应的方法
+...mapMutations('addcount')
+
+this.addcount = this.$store.commit('addcout') 
 import {mapMutations} from 'vuex'
 ...mapMutations('')
 用的时候放在methods上面
@@ -151,7 +155,8 @@ import {mapMutations} from 'vuex'
 所有需要引入的都在index.js引入
 流程 1导出(export default)---> 2引入(import ... form ...)---> 3在store对象上挂载{actions:actions}简化成{actions}
 
-使用常量
+使用常量替代 Mutation 事件类型 import * as Types from './mutations-types'
+把导出的所有的属性放在Types对象上面
 
 
 作业：把之前写过都放在拆分的里面去
@@ -165,3 +170,15 @@ const {mapState,mapGetters,mapActions} = createNamespacedHelpers('user')
 如果也有全局的用  任何情况都可以使用下面这种方式
  ...mapState([])
  ...mapState('模块名',['state里面的变量'])
+
+
+ ##插件
+ plugins:[]  插件的集合
+ 官方提供的logger插件  只做调试用
+ vuex表单处理 https://vuex.vuejs.org/zh/guide/forms.html
+
+ package.json  放脚本 放依赖文件
+
+//项目安排  2-5人做一个   负责人 统计
+博客类 easy-mock   每个人做一个小程序
+ //element  iview-admin  vue.ant.design

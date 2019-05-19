@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <a onclick="goto('/a')">去a</a>
+    <a onclick="goto('/b')">去b</a>
+    <div id="content"></div>
+    <script>
+        function goTo(path){
+            history.pushState({},null,path)
+            content.innerHTML=path
+        }
+        // popstate检测浏览器的变化
+        window.addEventListener('popstate',function(){
+            content.innerHTML=location.pathname;
+            // console.log('更新')
+
+            // console.log(location.pathname)
+        })
+    </script>
+</body>
+</html>

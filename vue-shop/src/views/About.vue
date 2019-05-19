@@ -5,7 +5,7 @@
       <ul class="con-items">
         <!-- <router-link v-for="item in pageList" :key="item.id" tag='li' :to="{name:'detail',params:{id:item.id}}"> -->
         <router-link v-for="item in pageList" :key="item.id" tag='li' :to="{name:'detail',query:{id:item.id}}">        
-             <img :src="item.img" alt="">
+             <img v-lazy="item.img" alt="">
               <p>{{item.name}}</p>
               <p> {{item.info}}</p>
               <p>{{item.price}}$</p>

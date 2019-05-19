@@ -1,9 +1,14 @@
 <template>
   <div id="app">
     <!-- <div id="nav"> -->
+       <!-- {{$route.meta.keepAlive}} -->
      <Nav/>
+     <!--需要缓存的路由视图走这里 -->
     <!-- </div> -->
-    <router-view />
+    <keep-alive>
+      <router-view  v-if="$route.meta.keepAlive"/>
+    </keep-alive>
+    <router-view  v-if="!$route.meta.keepAlive"/>
   </div>
 </template>
 <script>

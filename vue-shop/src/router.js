@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Home from "./views/Home.vue";
+// import Home from "./views/Home.vue";
 import My from "./views/My.vue";
 
 Vue.use(Router);
@@ -11,7 +11,10 @@ export default new Router({
     {
       path: "/",
       name: "home",
-      component: Home
+      component: ()=>import('./views/Home.vue'),
+      meta:{
+        keepAlive:true
+      }
     },
     {
       path:"/my",
@@ -43,6 +46,12 @@ export default new Router({
       name:"detail",
       component: () =>
         import( "./views/Detail.vue")
+    },
+    {
+      path:'/*',
+      redirect:'/',
+      component: () =>
+      import( "./views/Home.vue")
     }
   ]
 });
